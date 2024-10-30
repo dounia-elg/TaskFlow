@@ -11,12 +11,14 @@ function closeModal() {
   document.getElementById("taskTitle");
   document.getElementById("taskDescription");
   document.getElementById("taskDeadline");
+  document.getElementById("taskPriority");
 }
 
 function addTask() {
   const title = document.getElementById("taskTitle").value;
   const description = document.getElementById("taskDescription").value;
-  const deadline = document.getElementById("taskDeadline").value
+  const deadline = document.getElementById("taskDeadline").value;
+
   const task = document.createElement("div");
   task.classList.add("bg-white", "border", "border-gray-300", "p-3", "mb-2", "rounded", "shadow");
 

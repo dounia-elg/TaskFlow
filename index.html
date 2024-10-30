@@ -56,6 +56,11 @@
       <input type="text" id="taskTitle" placeholder="Task Title" class=" bg-green-200 w-full p-2 mb-2 border border-gray-700 rounded ">
       <textarea id="taskDescription" placeholder="Task Description" class=" bg-green-200 w-full p-2 mb-2 border border-gray-700 rounded"></textarea>
       <input type="date" id="taskDeadline" placeholder="dd/mm/yyyy" class=" bg-green-200 w-full p-2 mb-2 border border-gray-700 rounded">
+      <select id="taskPriority" class=" bg-green-200 w-full p-2 mb-2 border border-gray-700 rounded">
+        <option value="P1">P1</option>
+        <option value="P2">P2</option>
+        <option value="P3">P3</option>
+      </select>
       <button onclick="addTask()" class="bg-green-400 text-black px-4 py-2 rounded">Add Task</button>
       <button onclick="closeModal()" class="bg-gray-300 text-black px-4 py-2 rounded ml-2">Cancel</button>
     </div>
