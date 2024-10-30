@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  
+  <!--------------------------------Board----------------------------->
+
+  <div class="bg-gray-200 flex items-center justify-center h-auto">
+    <div class="grid grid-cols-3 gap-4 w-full max-w-8xl p-16 ">
+      
+        <div class=" bg-pink-100 border border-gray-700 p-4 rounded-xl shadow-lg">
+            <div class="relative bg-pink-300 border  border-gray-700 pb-2 mb-4 rounded shadow-lg h-16 ">
+              <h2 class="text-center font-extrabold text-xl mt-4">To-Do</h2>
+              <div class="flex justify-end items-center ">
+                <button onclick="openModal('To-Do')" class="  bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center absolute inset-y-3 right-6 ">+</button>
+              </div>
+            </div>
+            <div  id="todoTasks" class="min-h-96"></div>
+        </div>
+
+      
+        <div class="  bg-yellow-100 border border-gray-700 p-4 rounded-xl shadow-lg ">
+            <div class="relative bg-yellow-300 border border-gray-700 pb-2 mb-4 rounded shadow-lg h-16 ">
+              <h2 class="text-center font-extrabold text-xl mt-4">In Progress</h2>
+              <div class="flex justify-end items-center ">
+                <button onclick="openModal('In-Progress')" class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center absolute inset-y-3 right-6 ">+</button>
+              </div>
+            </div>
+            <div id="todoTasks" class="min-h-96 "></div>
+        </div>
+
+      
+        <div class="  bg-blue-100 border border-gray-700 p-4 rounded-xl shadow-lg">
+            <div class="relative bg-blue-300 border border-gray-700 pb-2 mb-4 rounded shadow-lg h-16">
+              <h2 class="text-center font-extrabold text-xl mt-4">Done</h2>
+              <div class="flex justify-end items-center "></div>
+                <button onclick="openModal('Done')" class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center absolute inset-y-3 right-6 ">+</button>
+              </div>
+            </div>
+            <div id="todoTasks" class="min-h-96"></div>
+        </div>
+
+    </div>
+  </div>
+
+  <!-----------------------------Modal-------------------------->
+
+  <div id="taskModal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-800 bg-opacity-50">
+    <div class="bg-white p-6 rounded shadow-lg w-96">
+      <input type="text" id="taskTitle" placeholder="Task Title" class="w-full p-2 mb-2 border border-gray-300 rounded">
+      <textarea id="taskDescription" placeholder="Task Description" class="w-full p-2 mb-2 border border-gray-300 rounded"></textarea>
+      <button onclick="addTask()" class="bg-blue-500 text-white px-4 py-2 rounded">Add Task</button>
+      <button onclick="closeModal()" class="bg-gray-300 text-black px-4 py-2 rounded ml-2">Cancel</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
