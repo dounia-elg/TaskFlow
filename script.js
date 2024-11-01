@@ -1,68 +1,120 @@
-
 let currentSection = "";
+let tasks = []; 
 
 function openModal(section) {
-  currentSection = section;
-  document.getElementById("taskModal").classList.remove("hidden");
+    currentSection = section;
+    document.getElementById("taskModal").classList.remove("hidden");
 }
 
 function closeModal() {
-  document.getElementById("taskModal").classList.add("hidden");
-  document.getElementById("taskTitle").value = "";
-  document.getElementById("taskDescription").value = "";
-  document.getElementById("taskDeadline").value = "";
-  document.getElementById("taskPriority").value = "";
+    document.getElementById("taskModal").classList.add("hidden");
+    document.getElementById("taskTitle").value = "";
+    document.getElementById("taskDescription").value = "";
+    document.getElementById("taskDeadline").value = "";
+    document.getElementById("taskPriority").value = "P1"; // Reset to default
 }
 
 function addTask() {
-  const title = document.getElementById("taskTitle").value;
-  const description = document.getElementById("taskDescription").value;
-  const deadline = document.getElementById("taskDeadline").value;
-  const taskPriority = document.getElementById("taskPriority").value;
+    const title = document.getElementById("taskTitle").value;
+    const description = document.getElementById("taskDescription").value;
+    const deadline = document.getElementById("taskDeadline").value;
+    const taskPriority = document.getElementById("taskPriority").value;
 
-  console.log("Task Priority:", taskPriority);
 
-  let task = document.createElement("div");
-  task.classList.add( "border", "border-gray-300", "p-3", "mb-2", "rounded", "shadow");
+    let task = {
+        title,
+        description,
+        deadline,
+        priority: taskPriority,
+        section: currentSection,
+    };
 
-  if (taskPriority === "P1") {
-    task.classList.add("bg-red-400");
-  } else if (taskPriority === "P2") {
-    task.classList.add("bg-orange-300");
-  } else if (taskPriority === "P3") {
-    task.classList.add("bg-green-300");
-  }
+    tasks.push(task); 
+    displayTask(task); 
+    closeModal();
+}
 
-  task.innerHTML = `
-    <h3 class="font-bold text-lg ">${title}</h3>
-    <p class="text-sm text-gray-600">${description}</p>
-    <p class="text-xs text-gray-600">${deadline}</p>
+function displayTask(task) {
+    const taskElement = document.createElement("div");
+    taskElement.classList.add("border", "border-gray-300", "p-3", "mb-2", "rounded-lg", "shadow");
 
-  `;
 
-  let deleteButton = document.createElement("button");
-  deleteButton.innerText = "Delete";
+    if (task.priority === "P1") {
+        taskElement.classList.add("bg-red-400");
+    } else if (task.priority === "P2") {
+        taskElement.classList.add("bg-orange-300");
+    } else if (task.priority === "P3") {
+        taskElement.classList.add("bg-green-300");
+    }
 
-  deleteButton.classList.add("delete-btn", "bg-red-500", "text-white", "rounded" , "p-2", "mt-2");
+    taskElement.innerHTML = `
+        <h3 class="font-bold text-lg">${task.title}</h3>
+        <p class="text-sm text-gray-600">${task.description}</p>
+        <p class="text-xs text-gray-600">Deadline: ${task.deadline}</p>
+    `;
 
-  deleteButton.addEventListener("click",function(){
-    task.remove();
-  })
 
-  task.appendChild(deleteButton);
+    let editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.classList.add("w-16", "bg-green-500", "text-white", "rounded", "p-2", "mt-2", "ml-2");
+    editButton.addEventListener("click", () => editTask(task, taskElement));
+    taskElement.appendChild(editButton);
 
   
-    if(currentSection === "To-Do"){
-    document.getElementById("todoTasks").appendChild(task);
-  } else if(currentSection === "In Progress"){
-    document.getElementById("inProgressTasks").appendChild(task);
-  } else if(currentSection === "Done"){
-    document.getElementById("doneTasks").appendChild(task);
-  }
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.classList.add("delete-btn", "bg-red-500", "text-white", "rounded", "p-2", "mt-2", "ml-64");
+    deleteButton.addEventListener("click", () => {
+        taskElement.remove();
+        tasks = tasks.filter(t => t !== task); 
+    });
+    taskElement.appendChild(deleteButton);
+
   
+    if (task.section === "To-Do") {
+        document.getElementById("todoTasks").appendChild(taskElement);
+    } else if (task.section === "In Progress") {
+        document.getElementById("inProgressTasks").appendChild(taskElement);
+    } else if (task.section === "Done") {
+        document.getElementById("doneTasks").appendChild(taskElement);
+    }
+}
+
+function editTask(task, taskElement) {
   
+    document.getElementById("taskTitle").value = task.title;
+    document.getElementById("taskDescription").value = task.description;
+    document.getElementById("taskDeadline").value = task.deadline;
+    document.getElementById("taskPriority").value = task.priority;
+
+  
+    const addButton = document.querySelector("#taskModal button");
+    addButton.innerText = "Update Task";
+    addButton.onclick = () => updateTask(task, taskElement);
+
+    openModal(task.section);
+}
+
+function updateTask(task, taskElement) {
+    task.title = document.getElementById("taskTitle").value;
+    task.description = document.getElementById("taskDescription").value;
+    task.deadline = document.getElementById("taskDeadline").value;
+    task.priority = document.getElementById("taskPriority").value;
 
 
+    taskElement.querySelector("h3").innerText = task.title;
+    taskElement.querySelector("p:nth-of-type(1)").innerText = task.description;
+    taskElement.querySelector("p:nth-of-type(2)").innerText = task.deadline;
 
-  closeModal();
+  
+    taskElement.className = "border border-gray-300 p-3 mb-2 rounded-lg shadow"; 
+    if (task.priority === "P1") {
+        taskElement.classList.add("bg-red-400");
+    } else if (task.priority === "P2") {
+        taskElement.classList.add("bg-orange-300");
+    } else if (task.priority === "P3") {
+        taskElement.classList.add("bg-green-300");
+    }
+
+    closeModal();
 }
