@@ -11,7 +11,7 @@ function closeModal() {
     document.getElementById("taskTitle").value = "";
     document.getElementById("taskDescription").value = "";
     document.getElementById("taskDeadline").value = "";
-    document.getElementById("taskPriority").value = "P1"; // Reset to default
+    document.getElementById("taskPriority").value = "P1"; 
 }
 
 function addTask() {
@@ -31,6 +31,7 @@ function addTask() {
 
     tasks.push(task); 
     displayTask(task); 
+    Counter();
     closeModal();
 }
 
@@ -66,7 +67,8 @@ function displayTask(task) {
     deleteButton.classList.add("delete-btn", "bg-red-500", "text-white", "rounded", "p-2", "mt-2", "ml-64");
     deleteButton.addEventListener("click", () => {
         taskElement.remove();
-        tasks = tasks.filter(t => t !== task); 
+        tasks = tasks.filter(t => t !== task);
+        Counter(); 
     });
     taskElement.appendChild(deleteButton);
 
@@ -118,3 +120,10 @@ function updateTask(task, taskElement) {
 
     closeModal();
 }
+
+function Counter() {
+    document.getElementById("todoCounter").innerText = document.getElementById("todoTasks").children.length;
+    document.getElementById("inProgressCounter").innerText = document.getElementById("inProgressTasks").children.length;
+    document.getElementById("doneCounter").innerText = document.getElementById("doneTasks").children.length;
+}
+
