@@ -12,6 +12,10 @@ function closeModal() {
     document.getElementById("taskDescription").value = "";
     document.getElementById("taskDeadline").value = "";
     document.getElementById("taskPriority").value = "P1"; 
+
+    const addButton = document.querySelector("#taskModal button");
+    addButton.innerText = "Add Task";
+    addButton.onclick = addTask;
 }
 
 function addTask() {
@@ -28,6 +32,8 @@ function addTask() {
         priority: taskPriority,
         section: currentSection,
     };
+
+    console.log("Current Section:", currentSection);
 
     tasks.push(task); 
     displayTask(task); 
@@ -51,7 +57,7 @@ function displayTask(task) {
     taskElement.innerHTML = `
         <h3 class="font-bold text-lg">${task.title}</h3>
         <p class="text-sm text-gray-600">${task.description}</p>
-        <p class="text-xs text-gray-600">Deadline: ${task.deadline}</p>
+        <p class="text-xs text-gray-600">${task.deadline}</p>
     `;
 
 
