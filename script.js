@@ -60,6 +60,7 @@ function displayTask(task) {
         <p class="text-xs text-gray-600">${task.deadline}</p>
     `;
 
+    
 
     let editButton = document.createElement("button");
     editButton.innerText = "Edit";
@@ -78,6 +79,24 @@ function displayTask(task) {
     });
     taskElement.appendChild(deleteButton);
 
+    if (task.section === "To-Do") {
+        let moveButton = document.createElement("button");
+        moveButton.innerText = "Next >>";
+        moveButton.classList.add("bg-yellow-500", "text-white", "rounded", "p-2", "mt-2");
+        moveButton.addEventListener("click", () => {
+            moveTask(task, "In Progress", taskElement);
+        });
+        taskElement.appendChild(moveButton);
+    } else if (task.section === "In Progress") {
+        let moveButton = document.createElement("button");
+        moveButton.innerText = "Next >>";
+        moveButton.classList.add("bg-yellow-500", "text-white", "rounded", "p-2", "mt-2");
+        moveButton.addEventListener("click", () => {
+            moveTask(task, "Done", taskElement);
+        });
+        taskElement.appendChild(moveButton);
+    }
+
   
     if (task.section === "To-Do") {
         document.getElementById("todoTasks").appendChild(taskElement);
@@ -87,6 +106,16 @@ function displayTask(task) {
         document.getElementById("doneTasks").appendChild(taskElement);
     }
 }
+
+function moveTask(task, newSection, taskElement) {
+
+    task.section = newSection
+    taskElement.remove();
+
+    displayTask(task);
+    Counter();
+}
+
 
 function editTask(task, taskElement) {
   
