@@ -33,12 +33,20 @@ function addTask() {
         section: currentSection,
     };
 
-    console.log("Current Section:", currentSection);
+    
 
     tasks.push(task); 
     displayTask(task); 
     Counter();
     closeModal();
+}
+
+function moveTask(task, newSection, taskElement) {
+
+    task.section = newSection
+    taskElement.remove();
+    displayTask(task);
+    Counter();
 }
 
 function displayTask(task) {
@@ -64,14 +72,14 @@ function displayTask(task) {
 
     let editButton = document.createElement("button");
     editButton.innerText = "Edit";
-    editButton.classList.add("w-16", "bg-green-500", "text-white", "rounded", "p-2", "mt-2", "ml-2");
+    editButton.classList.add("w-16", "bg-green-500", "text-white", "rounded", "p-2", "mt-2", "ml-2", "ml-24");
     editButton.addEventListener("click", () => editTask(task, taskElement));
     taskElement.appendChild(editButton);
 
   
     let deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
-    deleteButton.classList.add("delete-btn", "bg-red-500", "text-white", "rounded", "p-2", "mt-2", "ml-64");
+    deleteButton.classList.add("delete-btn", "bg-red-500", "text-white", "rounded", "p-2", "mt-2");
     deleteButton.addEventListener("click", () => {
         taskElement.remove();
         tasks = tasks.filter(t => t !== task);
@@ -82,7 +90,7 @@ function displayTask(task) {
     if (task.section === "To-Do") {
         let moveButton = document.createElement("button");
         moveButton.innerText = "Next >>";
-        moveButton.classList.add("bg-yellow-500", "text-white", "rounded", "p-2", "mt-2");
+        moveButton.classList.add("bg-yellow-400", "text-white", "rounded", "p-2", "mt-2");
         moveButton.addEventListener("click", () => {
             moveTask(task, "In Progress", taskElement);
         });
@@ -90,7 +98,7 @@ function displayTask(task) {
     } else if (task.section === "In Progress") {
         let moveButton = document.createElement("button");
         moveButton.innerText = "Next >>";
-        moveButton.classList.add("bg-yellow-500", "text-white", "rounded", "p-2", "mt-2");
+        moveButton.classList.add("bg-yellow-400", "text-white", "rounded", "p-2", "mt-2");
         moveButton.addEventListener("click", () => {
             moveTask(task, "Done", taskElement);
         });
@@ -148,12 +156,7 @@ function updateTask(task, taskElement) {
     closeModal();
 }
 
-function moveTask(task, newSection, taskElement) {
-    task.section = newSection
-    taskElement.remove();
-    displayTask(task);
-    Counter();
-}
+
 
 
 function Counter() {
