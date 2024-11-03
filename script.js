@@ -6,6 +6,8 @@ function openModal(section) {
     document.getElementById("taskModal").classList.remove("hidden");
 }
 
+
+
 function closeModal() {
     document.getElementById("taskModal").classList.add("hidden");
     document.getElementById("taskTitle").value = "";
@@ -18,12 +20,13 @@ function closeModal() {
     addButton.onclick = addTask;
 }
 
+
+
 function addTask() {
     const title = document.getElementById("taskTitle").value;
     const description = document.getElementById("taskDescription").value;
     const deadline = document.getElementById("taskDeadline").value;
     const taskPriority = document.getElementById("taskPriority").value;
-
 
     let task = {
         title,
@@ -33,21 +36,21 @@ function addTask() {
         section: currentSection,
     };
 
-    
-
     tasks.push(task); 
     displayTask(task); 
     Counter();
     closeModal();
 }
 
-function moveTask(task, newSection, taskElement) {
 
+function moveTask(task, newSection, taskElement) {
     task.section = newSection
     taskElement.remove();
     displayTask(task);
     Counter();
 }
+
+
 
 function displayTask(task) {
     const taskElement = document.createElement("div");
@@ -69,7 +72,6 @@ function displayTask(task) {
     `;
 
     
-
     let editButton = document.createElement("button");
     editButton.innerText = "Edit";
     editButton.classList.add("w-16", "bg-green-500", "text-white", "rounded", "p-2", "mt-2", "ml-2", "ml-24");
@@ -132,6 +134,8 @@ function editTask(task, taskElement) {
     openModal(task.section);
 }
 
+
+
 function updateTask(task, taskElement) {
     task.title = document.getElementById("taskTitle").value;
     task.description = document.getElementById("taskDescription").value;
@@ -158,7 +162,6 @@ function updateTask(task, taskElement) {
 
 
 
-
 function Counter() {
     const todoCount = document.getElementById("todoTasks").children.length;
     const inProgressCount = document.getElementById("inProgressTasks").children.length;
@@ -172,5 +175,7 @@ function Counter() {
     document.getElementById("inProgressCounter").innerText = inProgressCount;
     document.getElementById("doneCounter").innerText = doneCount;
 }
+
+
 
 
