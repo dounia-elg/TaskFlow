@@ -107,14 +107,6 @@ function displayTask(task) {
     }
 }
 
-function moveTask(task, newSection, taskElement) {
-
-    task.section = newSection
-    taskElement.remove();
-
-    displayTask(task);
-    Counter();
-}
 
 
 function editTask(task, taskElement) {
@@ -156,9 +148,26 @@ function updateTask(task, taskElement) {
     closeModal();
 }
 
-function Counter() {
-    document.getElementById("todoCounter").innerText = document.getElementById("todoTasks").children.length;
-    document.getElementById("inProgressCounter").innerText = document.getElementById("inProgressTasks").children.length;
-    document.getElementById("doneCounter").innerText = document.getElementById("doneTasks").children.length;
+function moveTask(task, newSection, taskElement) {
+    task.section = newSection
+    taskElement.remove();
+    displayTask(task);
+    Counter();
 }
+
+
+function Counter() {
+    const todoCount = document.getElementById("todoTasks").children.length;
+    const inProgressCount = document.getElementById("inProgressTasks").children.length;
+    const doneCount = document.getElementById("doneTasks").children.length;
+
+    console.log("To-Do Count:", todoCount);
+    console.log("In Progress Count:", inProgressCount);
+    console.log("Done Count:", doneCount);
+
+    document.getElementById("todoCounter").innerText = todoCount;
+    document.getElementById("inProgressCounter").innerText = inProgressCount;
+    document.getElementById("doneCounter").innerText = doneCount;
+}
+
 
